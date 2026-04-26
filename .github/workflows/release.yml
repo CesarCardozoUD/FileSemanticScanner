@@ -1,0 +1,33 @@
+name: Generate ZIP and Release
+
+on:
+  push:
+    branches:
+      - master  # Cambia a 'main' si tu rama se llama así
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Crear archivo ZIP
+        run: |
+          # Reemplaza archivo1.py, etc., con los nombres reales de tus archivos
+          zip scripts_python.zip files_utils.py launcher.py orchestrator.py text_analyzer.py
+
+      - name: Crear Release y Subir Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: release-${{ github.run_number }}
+          name: Release ${{ github.run_number }} (Automatic)
+          body: |
+            Actualización automática de scripts de Python.
+            Commit: ${{ github.sha }}
+          files: scripts_python.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
