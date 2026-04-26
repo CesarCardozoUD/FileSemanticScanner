@@ -3,7 +3,7 @@ name: Generate ZIP and Release
 on:
   push:
     branches:
-      - master  # Cambia a 'main' si tu rama se llama así
+      - main  # Cambia a 'main' si tu rama se llama así
 
 jobs:
   release:
